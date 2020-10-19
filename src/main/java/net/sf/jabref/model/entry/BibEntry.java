@@ -378,6 +378,15 @@ public class BibEntry {
             fields.put(fieldName, oldValue);
             throw new IllegalArgumentException("Change rejected: " + pve);
         }
+
+	if (fieldName.equals("year")) {
+            int inputYear = Integer.parseInt(value);
+            int minYear = Calendar.getInstance().getActualMinimum(Calendar.YEAR);
+            int actualYear = Calendar.getInstance().get(Calendar.YEAR);
+            if ((inputYear < minYear) || (inputYear > actualYear)) {
+                throw new IllegalArgumentException("The field value '" + name + "' is invalid");
+            }
+        }
     }
 
     /**
